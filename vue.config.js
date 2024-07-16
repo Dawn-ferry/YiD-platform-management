@@ -21,7 +21,7 @@ function getIP() {
   }
   return ip || "127.0.0.1"
 }
-const port = process.env.port || process.env.npm_config_port || 9529 // dev port
+const port = process.env.port || process.env.npm_config_port || 8585 // dev port
 module.exports = {
   // 打包的时候要改成 ./
   publicPath: "/",
@@ -65,7 +65,6 @@ module.exports = {
     },
   },
   // svg图片的配置
-  // https://blog.csdn.net/m0_46846526/article/details/118131597
   chainWebpack(config) {
     // when there are many pages, it will cause too many meaningless requests
     config.plugins.delete("prefetch")
