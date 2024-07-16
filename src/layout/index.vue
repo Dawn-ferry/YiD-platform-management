@@ -49,7 +49,7 @@ export default {
   },
   mounted() {
     watermark.load({
-      watermark_txt: `YiD公司-${this.userInfo.username}`,
+      watermark_txt: `YD公司-${this.userInfo.username}`,
       watermark_x: -100,
       watermark_y: 100,
       // 水印字体大小
