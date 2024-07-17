@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { AddUser, UpdateUser } from "@/api/oms"
+import { AddUser, UpdateUser } from "@/api/setting"
 export default {
   name: "addUserModal",
   props: ["isShow", "title", "backData", "roleData"],

@@ -18,7 +18,6 @@ const generator = (routerMap) => {
 // ============================================================================================//
 
 // 注意配置父节点数据 要与后端保持一致
-// 设置路径的注意事项：
 //  动态路由
 export const asyncRoutes = [
   {
@@ -35,7 +34,6 @@ export const asyncRoutes = [
       },
     ],
   },
-
   // 系统管理
   {
     path: "/omsmanage",
@@ -46,31 +44,31 @@ export const asyncRoutes = [
       {
         path: "/userinfo",
         name: "userinfo",
-        component: () => import("@/views/omsmanage/omsmanageuser"),
+        component: () => import("@/views/setting/manageuser"),
         meta: { title: "用户管理", role: "manage_user" },
       },
       {
         path: "/roleinfo",
         name: "roleinfo",
-        component: () => import("@/views/omsmanage/omsmanagerole"),
+        component: () => import("@/views/setting/managerole"),
         meta: { title: "角色管理", role: "manage_role" },
       },
       {
         path: "/permissionsinfo",
         name: "permissionsinfo",
-        component: () => import("@/views/omsmanage/omsmanagepermissions"),
+        component: () => import("@/views/setting/managepermissions"),
         meta: { title: "基础权限管理", role: "manage_permissions" },
       },
       {
         path: "/managelogger",
         name: "managelogger",
-        component: () => import("@/views/omsmanage/loggers"),
+        component: () => import("@/views/setting/loggers"),
         meta: { title: "日志管理", role: "manage_loggers" },
       },
       {
         path: "/notificationStationManage",
         name: "notificationStationManage",
-        component: () => import("@/views/omsmanage/notificationStationManage"),
+        component: () => import("@/views/setting/notificationStationManage"),
         meta: { title: "信息通知站点", role: "info_notification_site" },
       },
     ],

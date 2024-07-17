@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { OmsUser, DeleteUser } from "@/api/oms"
+import { OmsUser, DeleteUser } from "@/api/setting"
 import { roleList } from "@/api/role"
 import { foundNode } from "@/utils/tool"
 

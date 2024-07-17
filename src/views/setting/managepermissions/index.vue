@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { permissionsList } from "@/api/omsPermission"
+import { permissionsList } from "@/api/permission"
 export default {
   name: "permissionsinfo",
   components: {

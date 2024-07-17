@@ -151,6 +151,7 @@ const actions = {
   resetToken({ commit }) {
     return new Promise((resolve) => {
       removeToken()
+      resetRouter() //重置路由
       commit("RESET_STATE")
       resolve()
     })

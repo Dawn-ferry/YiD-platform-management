@@ -22,7 +22,7 @@
 
 <script>
 import { addRolePer } from "@/api/role"
-import { permissionsList } from "@/api/omsPermission"
+import { permissionsList } from "@/api/permission"
 export default {
   name: "roleModal",
   props: ["isHide", "backRoleData", "selectIds"],

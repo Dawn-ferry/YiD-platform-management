@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { permissionsEdit, permissionsAdd } from "@/api/omsPermission"
+import { permissionsEdit, permissionsAdd } from "@/api/permission"
 import { asyncRoutes } from "@/router/asyncRoutes"
 export default {
   name: "addPermissionModal",

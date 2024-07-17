@@ -6,7 +6,8 @@
       </div>
     </div>
     <div class="yidu-main">
-      <el-table :data="tableData" border max-height="535" style="width: 100%">
+      <!-- <BaseTable :tableData="tableData" :filterColums="filterColums" /> -->
+      <el-table :data="tableData" border max-height="500" style="width: 100%">
         <el-table-column fixed type="index" label="序号" width="60" align="center" />
         <el-table-column v-if="false" prop="id" label="id" />
         <el-table-column prop="content" label="通知内容" align="center" show-overflow-tooltip />
@@ -34,14 +35,20 @@
 
 <script>
 import { msgsiteList, msgsiteDelet } from "@/api/msgsite"
+import BaseTable from "@/components/baseTable"
 export default {
   name: "notificationStationManage",
   components: {
     Modal: () => import("./modal.vue"),
+    BaseTable: () => BaseTable,
   },
   data() {
     return {
       tableData: [],
+      filterColums: [
+        { type: "index", index: "", label: "序号", prop: "", width: "60", fixed: true, showOverflowTooltip: false },
+        { label: "id", prop: "id", width: "60", fixed: true, showOverflowTooltip: false },
+      ],
       isShow: false,
       title: "",
       backData: null,
@@ -63,19 +70,14 @@ export default {
       this.searchForm = {}
       this.sitelist()
     },
-    async sitelist(val) {
-      if (val) {
-        var { pagesize, pageindex } = val
-      }
+    async sitelist() {
       const data = {
-        pageindex: pageindex || this.currentPage,
-        pagesize: pagesize || this.pageSize,
+        pageindex: this.currentPage,
+        pagesize: this.pageSize,
       }
       let res = await msgsiteList(data)
       if (res.success) {
         this.tableData = res.data.list
-        this.currentPage = res.data.pageindex
-        this.pageSize = res.data.pagesize
         this.total = res.data.pagetotal
         return
       }
@@ -108,10 +110,12 @@ export default {
         })
     },
     handleSizeChange(val) {
-      this.sitelist({ pagesize: val })
+      this.pageSize = val
+      this.sitelist()
     },
     handleCurrentChange(val) {
-      this.sitelist({ pageindex: val })
+      this.currentPage = val
+      this.sitelist()
     },
   },
 }

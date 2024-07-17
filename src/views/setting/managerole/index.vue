@@ -8,7 +8,7 @@
     <div class="yidu-main">
       <el-table :data="tableData" border max-height="535" style="width: 100%">
         <el-table-column fixed type="index" label="序号" width="60" align="center" />
-        <el-table-column prop="id" label="角色id" width="80" />
+        <el-table-column v-if="false" prop="id" label="角色id" width="80" />
         <el-table-column prop="rolename" label="角色名称" align="center" />
         <el-table-column align="center" label="状态">
           <template slot-scope="scope">
