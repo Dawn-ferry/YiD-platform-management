@@ -3,18 +3,30 @@
     <el-dialog title="添加角色权限" :visible="isHide" width="30%" center @close="$emit('close')">
       <el-form :model="form" label-width="100px">
         <el-form-item label="角色ID">
-          <el-input v-model="form.roleid" disabled></el-input>
+          <el-input v-model="form.roleid" size="small" disabled />
         </el-form-item>
         <el-form-item label="角色名称">
-          <el-input v-model="form.rolename" disabled></el-input>
+          <el-input v-model="form.rolename" size="small" disabled />
         </el-form-item>
         <el-form-item label="权限设置">
-          <el-tree :data="permissionsData" highlight-current show-checkbox default-expand-all :check-strictly="isCheck" empty-text="占无数据" node-key="id" ref="tree" :props="defaultProps" @check="handleNodeClick"></el-tree>
+          <el-tree
+            :data="permissionsData"
+            size="small"
+            highlight-current
+            show-checkbox
+            default-expand-all
+            :check-strictly="isCheck"
+            empty-text="占无数据"
+            node-key="id"
+            ref="tree"
+            :props="defaultProps"
+            @check="handleNodeClick"
+          ></el-tree>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="$emit('close')">取 消</el-button>
-        <el-button type="primary" @click="submitFn">确 定</el-button>
+        <el-button @click="$emit('close')" size="small">取 消</el-button>
+        <el-button type="primary" size="small" @click="submitFn">确 定</el-button>
       </div>
     </el-dialog>
   </div>

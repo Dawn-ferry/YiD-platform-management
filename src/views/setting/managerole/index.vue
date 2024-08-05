@@ -2,11 +2,11 @@
   <div class="yidu-container">
     <div class="yidu-header">
       <div class="btn-area">
-        <el-button type="primary" @click="addFn">添加角色</el-button>
+        <el-button type="primary" size="small" @click="addFn">添加角色</el-button>
       </div>
     </div>
     <div class="yidu-main">
-      <el-table :data="tableData" border max-height="535" style="width: 100%">
+      <el-table :data="tableData" border max-height="550px" style="width: 100%">
         <el-table-column fixed type="index" label="序号" width="60" align="center" />
         <el-table-column v-if="false" prop="id" label="角色id" width="80" />
         <el-table-column prop="rolename" label="角色名称" align="center" />
@@ -28,10 +28,34 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination style="margin-top: 10px" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40, 50]" :page-size="pageSize" :total="total" layout="total, sizes, prev, pager, next, jumper"></el-pagination>
+      <el-pagination
+        style="margin-top: 10px;text-align: left;"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[10, 20, 30, 40, 50]"
+        :page-size="pageSize"
+        :total="total"
+        layout="total, sizes, prev, pager, next, jumper"
+      ></el-pagination>
     </div>
-    <Modal v-if="isShow" :isShow="isShow" :title="title" :backData="backData" :dictData="dictData" @close="isShow = false" @updateList="roleList" />
-    <RoleModal v-if="isHide" :isHide="isHide" :selectIds="selectIds" :backRoleData="backRoleData" @updateList="roleList" @close="isHide = false" />
+    <Modal
+      v-if="isShow"
+      :isShow="isShow"
+      :title="title"
+      :backData="backData"
+      :dictData="dictData"
+      @close="isShow = false"
+      @updateList="roleList"
+    />
+    <RoleModal
+      v-if="isHide"
+      :isHide="isHide"
+      :selectIds="selectIds"
+      :backRoleData="backRoleData"
+      @updateList="roleList"
+      @close="isHide = false"
+    />
   </div>
 </template>
 

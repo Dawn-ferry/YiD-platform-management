@@ -2,32 +2,34 @@
   <div class="yidu-container">
     <div class="yidu-header">
       <div class="btn-area">
-        <el-button type="primary" @click="addContent">内容添加</el-button>
+        <el-button type="primary" size="small" @click="addContent">内容添加</el-button>
       </div>
     </div>
     <div class="yidu-main">
-      <!-- <BaseTable :tableData="tableData" :filterColums="filterColums" /> -->
-      <el-table :data="tableData" border max-height="500" style="width: 100%">
-        <el-table-column fixed type="index" label="序号" width="60" align="center" />
-        <el-table-column v-if="false" prop="id" label="id" />
-        <el-table-column prop="content" label="通知内容" align="center" show-overflow-tooltip />
-        <el-table-column label="通知类型" width="180" align="center">
-          <template slot-scope="scope">{{ scope.row.infotype === 1 ? "通知" : "重大事项" }}</template>
-        </el-table-column>
-        <el-table-column prop="release_time" label="发布时间" width="155" align="center">
-          <template slot-scope="scope">{{ $formatDate(scope.row.release_time) }}</template>
-        </el-table-column>
-        <el-table-column prop="last_updatetime" label="最后修改时间" width="155" align="center">
-          <template slot-scope="scope">{{ $formatDate(scope.row.last_updatetime) }}</template>
-        </el-table-column>
-        <el-table-column fixed="right" label="操作" align="center" width="120">
-          <template slot-scope="scope">
-            <el-button type="text" size="small" @click="editFn(scope.row)">编辑</el-button>
-            <el-button type="text" size="small" @click="delFn(scope.row)">删除</el-button>
+      <BaseTable :tableData="tableData" :filterColums="filterColums">
+        <template v-slot:beforeCol>
+          <el-table-column type="index" width="60" />
+        </template>
+        <template v-slot:tableBody="{ scopeData: { row, column } }">
+          <template v-if="column.property === 'infotype'">{{ row.infotype === 1 ? "通知" : "重大事项" }}</template>
+          <template v-else-if="column.property === 'release_time'">{{ $formatDate(row.release_time) }}</template>
+          <template v-else-if="column.property === 'last_updatetime'">{{ $formatDate(row.last_updatetime) }}</template>
+          <template v-else-if="column.property === 'edit'">
+            <el-button type="text" size="small" @click="editFn(row)">编辑</el-button>
+            <el-button type="text" size="small" @click="delFn(row)">删除</el-button>
           </template>
-        </el-table-column>
-      </el-table>
-      <el-pagination style="margin-top: 10px" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40, 50]" :page-size="pageSize" :total="total" layout="total, sizes, prev, pager, next, jumper" />
+        </template>
+      </BaseTable>
+      <el-pagination
+        style="margin-top: 10px;text-align: left;"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[10, 20, 30, 40, 50]"
+        :page-size="pageSize"
+        :total="total"
+        layout="total, sizes, prev, pager, next, jumper"
+      />
     </div>
     <Modal v-if="isShow" :isShow="isShow" :title="title" :backData="backData" @updateList="sitelist" @close="isShow = false" />
   </div>
@@ -35,19 +37,28 @@
 
 <script>
 import { msgsiteList, msgsiteDelet } from "@/api/msgsite"
-import BaseTable from "@/components/baseTable"
 export default {
   name: "notificationStationManage",
   components: {
     Modal: () => import("./modal.vue"),
-    BaseTable: () => BaseTable,
+    BaseTable: () => import("@/components/baseTable"),
   },
+
   data() {
     return {
       tableData: [],
       filterColums: [
-        { type: "index", index: "", label: "序号", prop: "", width: "60", fixed: true, showOverflowTooltip: false },
-        { label: "id", prop: "id", width: "60", fixed: true, showOverflowTooltip: false },
+        { label: "id", prop: "id", width: "60" },
+        { label: "通知内容", prop: "content", showOverflowTooltip: true },
+        { label: "通知类型", prop: "infotype" },
+        { label: "发布时间", prop: "release_time" },
+        { label: "最后修改时间", prop: "last_updatetime" },
+        {
+          label: "操作",
+          prop: "edit",
+          fixed: "right",
+          width: "180",
+        },
       ],
       isShow: false,
       title: "",

@@ -2,48 +2,40 @@
   <div class="yidu-container">
     <div class="yidu-header">
       <div class="search-area">
-        <el-form ref="searchForm" :model="searchForm" label-width="80px">
-          <el-row :gutter="20">
-            <el-col :span="7" :offset="3">
-              <el-form-item label="账号:">
-                <el-input v-model="searchForm.username" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="7">
-              <el-form-item label="姓名:">
-                <el-input v-model="searchForm.realname" />
-              </el-form-item>
-            </el-col>
-          </el-row>
+        <el-form ref="searchForm" :model="searchForm" label-width="50px">
+          <el-form-item label="账号" label-width="50px">
+            <el-input v-model="searchForm.username" size="small" style="width: 180px;" />
+          </el-form-item>
+          <el-form-item label="姓名">
+            <el-input v-model="searchForm.realname" size="small" style="width: 180px;" />
+          </el-form-item>
+          <div class="search-btn">
+            <el-button type="primary" size="small" icon="el-icon-search" @click="omsList">查询</el-button>
+            <el-button size="small" icon="el-icon-refresh" @click="resetForm">重置</el-button>
+          </div>
         </el-form>
       </div>
       <div class="btn-area">
         <div class="left">
-          <el-button type="primary" @click="addUser">添加用户</el-button>
+          <el-button type="primary" size="small" icon="el-icon-plus" @click="addUser">添加用户</el-button>
         </div>
-        <div class="right">
-          <el-button type="primary" @click="omsList">查询</el-button>
-          <el-button @click="resetForm">重置</el-button>
-        </div>
+        <div class="right"></div>
       </div>
     </div>
     <div class="yidu-main">
-      <el-table :data="tableData" border max-height="535" style="width: 100%">
+      <el-table :data="tableData" border max-height="550px" style="width: 100%">
         <el-table-column fixed type="index" label="序号" width="60" align="center" />
         <el-table-column v-if="false" prop="id" label="用户id" width="80" align="center" />
         <el-table-column prop="username" label="帐号" show-overflow-tooltip align="center" />
         <el-table-column prop="password" label="密码" show-overflow-tooltip align="center" />
         <el-table-column prop="realname" label="姓名" show-overflow-tooltip align="center" />
         <el-table-column prop="isadmin" label="身份" show-overflow-tooltip align="center">
-          <template slot-scope="scope">
-            {{ scope.row.isadmin ? "管理者" : "员工" }}
-          </template>
+          <template slot-scope="scope">{{ scope.row.isadmin ? "管理者" : "员工" }}</template>
         </el-table-column>
         <el-table-column prop="roleid" label="角色id" align="center" />
         <el-table-column label="所属部门" align="center" show-overflow-tooltip>
           <template slot-scope="scope">{{ depToName(scope.row.departmentids) }}</template>
         </el-table-column>
-
         <el-table-column align="center" label="状态" width="120">
           <template slot-scope="scope">
             <el-tag :type="scope.row.status ? 'success' : 'danger'">{{ scope.row.status ? "有效" : "无效" }}</el-tag>
@@ -60,10 +52,27 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination style="margin-top: 10px" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40, 50]" :page-size="pageSize" :total="total" layout="total, sizes, prev, pager, next, jumper" />
+      <el-pagination
+        style="margin-top: 10px;text-align: left;"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[10, 20, 30, 40, 50]"
+        :page-size="pageSize"
+        :total="total"
+        layout="total, sizes, prev, pager, next, jumper"
+      />
     </div>
 
-    <Modal v-if="isShow" :isShow="isShow" :title="title" :backData="backData" :roleData="roleData" @close="isShow = false" @updateList="omsList" />
+    <Modal
+      v-if="isShow"
+      :isShow="isShow"
+      :title="title"
+      :backData="backData"
+      :roleData="roleData"
+      @close="isShow = false"
+      @updateList="omsList"
+    />
   </div>
 </template>
 
@@ -194,3 +203,4 @@ export default {
   },
 }
 </script>
+<style lang="scss" ></style>

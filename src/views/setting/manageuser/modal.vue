@@ -9,6 +9,7 @@
                 v-model="form.username"
                 :disabled="isDisable"
                 placeholder="请输入"
+                size="small"
                 @input="
                   (e) => {
                     form.username = validForbid(e)
@@ -19,19 +20,19 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="密码" :prop="isDisable ? '' : 'password'" id="password">
-              <el-input v-model="form.password" :placeholder="isDisable ? '更改密码输入' : '请输入'" show-password />
+              <el-input v-model="form.password" size="small" :placeholder="isDisable ? '更改密码输入' : '请输入'" show-password />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="姓名" prop="realname" id="realname">
-              <el-input v-model="form.realname" placeholder="请输入" />
+              <el-input v-model="form.realname" size="small" placeholder="请输入" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="角色id" prop="roleid" id="roleid">
-              <el-select v-model="form.roleid" placeholder="请选择" style="width: 100%">
+              <el-select v-model="form.roleid" placeholder="请选择" size="small" style="width: 100%">
                 <el-option v-for="item in roleArr" :key="item.id" :label="item.rolename" :value="item.id" />
               </el-select>
             </el-form-item>
@@ -51,13 +52,14 @@
                 collapse-tags
                 clearable
                 @change="handleChange"
+                size="small"
                 style="width: 100%"
               />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="是否设管理员" prop="isadmin" id="isadmin" label-width="120px">
-              <el-select v-model="form.isadmin" placeholder="请选择" style="width: 100%">
+              <el-select v-model="form.isadmin" placeholder="请选择" size="small" style="width: 100%">
                 <el-option :key="1" label="是" :value="1" />
                 <el-option :key="2" label="否" :value="0" />
               </el-select>
@@ -67,7 +69,7 @@
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="状态" prop="status" id="status">
-              <el-select v-model="form.status" placeholder="请选择" style="width: 100%">
+              <el-select v-model="form.status" placeholder="请选择" size="small" style="width: 100%">
                 <el-option :key="1" label="有效" :value="1" />
                 <el-option :key="2" label="无效" :value="0" />
               </el-select>
@@ -77,8 +79,8 @@
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="$emit('close')">取 消</el-button>
-        <el-button type="primary" @click="submitFn">确 定</el-button>
+        <el-button @click="$emit('close')" size="small">取 消</el-button>
+        <el-button type="primary" size="small" @click="submitFn">确 定</el-button>
       </div>
     </el-dialog>
   </div>

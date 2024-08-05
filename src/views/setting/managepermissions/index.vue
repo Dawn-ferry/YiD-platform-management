@@ -2,11 +2,27 @@
   <div class="yidu-container">
     <div class="yidu-header">
       <div class="btn-area">
-        <el-button type="primary" @click="addFn">添加权限</el-button>
+        <el-button type="primary" size="small" @click="addFn">添加权限</el-button>
       </div>
     </div>
     <div class="yidu-main">
-      <el-table :data="tableData" row-key="id" border default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" max-height="535" style="width: 100%">
+      <BaseTable
+        :tableData="tableData"
+        :filterColums="filterColums"
+        row-key="id"
+        border
+        default-expand-all
+        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+        style="width: 100%"
+      ></BaseTable>
+      <!-- <el-table
+        :data="tableData"
+        row-key="id"
+        border
+        default-expand-all
+        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+        max-height="550px"
+      >
         <el-table-column fixed prop="id" label="权限id" align="center" />
         <el-table-column prop="per_code" label="基础权限code" width="120" show-overflow-tooltip align="center" />
         <el-table-column prop="per_name" label="基础权限名称" width="120" show-overflow-tooltip align="center" />
@@ -30,10 +46,19 @@
             <el-button type="text" size="small" @click="editFn(scope.row)">编辑</el-button>
           </template>
         </el-table-column>
-      </el-table>
+      </el-table>-->
     </div>
 
-    <Modal v-if="isShow" :isShow="isShow" :title="title" :parentIds="parentIds" :backData="backData" :dictData="dictData" @close="isShow = false" @updateList="omsPermissionList" />
+    <Modal
+      v-if="isShow"
+      :isShow="isShow"
+      :title="title"
+      :parentIds="parentIds"
+      :backData="backData"
+      :dictData="dictData"
+      @close="isShow = false"
+      @updateList="omsPermissionList"
+    />
   </div>
 </template>
 
@@ -43,10 +68,28 @@ export default {
   name: "permissionsinfo",
   components: {
     Modal: () => import("./modal.vue"),
+    BaseTable: () => import("@/components/baseTable"),
   },
   data() {
     return {
       tableData: [],
+      filterColums: [
+        { label: "id", prop: "权限id", width: "60" },
+        { label: "基础权限code", prop: "per_code", showOverflowTooltip: true, width: "120" },
+        { label: "基础权限名称", prop: "per_name" },
+        { label: "父级id", prop: "parent_id" },
+        { label: "路由", prop: "route" },
+        { label: "状态", prop: "status" },
+        { label: "排序", prop: "order_index" },
+        { label: "创建时间", prop: "create_time" },
+        { label: "最后修改时间", prop: "last_updatetime" },
+        {
+          label: "操作",
+          prop: "edit",
+          fixed: "right",
+          width: "180",
+        },
+      ],
       isShow: false,
       title: "",
       dictData: null,

@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <vue-particles class="particles" color="#fff"></vue-particles>
-    <div class="dashboard-text">欢迎【{{ name }}】使用EHR管理系统</div>
+    <div class="dashboard-text">欢迎{{ name }}使用Yi度管理系统</div>
   </div>
 </template>
 
@@ -30,7 +30,8 @@ export default {
     width: 90%;
     transform: translate(-50%, -50%);
     text-align: center;
-    font-size: 66px;
+    font-size: 60px;
+    font-weight: bold;
     color: #fff;
   }
   .particles {
