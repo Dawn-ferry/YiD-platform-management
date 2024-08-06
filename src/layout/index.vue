@@ -86,7 +86,8 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  // 禁止滚动条
+  // overflow: hidden;
   &.mobile.openSidebar {
     position: fixed;
     top: 0;

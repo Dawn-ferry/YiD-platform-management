@@ -6,56 +6,26 @@
       </div>
     </div>
     <div class="yidu-main">
-      <el-table :data="tableData" border max-height="550px" style="width: 100%">
-        <el-table-column fixed type="index" label="序号" width="60" align="center" />
-        <el-table-column v-if="false" prop="id" label="角色id" width="80" />
-        <el-table-column prop="rolename" label="角色名称" align="center" />
-        <el-table-column align="center" label="状态">
-          <template slot-scope="scope">
-            <el-tag :type="scope.row.status ? 'success' : 'danger'">{{ scope.row.status ? "有效" : "无效" }}</el-tag>
+      <BaseTable :tableData="tableData" :filterColums="filterColums">
+        <template v-slot:beforeCol>
+          <el-table-column type="index" width="60" align="center" />
+        </template>
+        <template v-slot:tableBody="{ scopeData: { row, column } }">
+          <template v-if="column.property === 'status'">
+            <el-tag :type="row.status ? 'success' : 'danger'">{{ row.status ? "有效" : "无效" }}</el-tag>
           </template>
-        </el-table-column>
-        <el-table-column label="创建时间" align="center">
-          <template slot-scope="scope">{{ $formatDate(scope.row.create_time) }}</template>
-        </el-table-column>
-        <el-table-column label="最后修改时间" align="center">
-          <template slot-scope="scope">{{ $formatDate(scope.row.last_updatetime) }}</template>
-        </el-table-column>
-        <el-table-column fixed="right" label="操作" align="center">
-          <template slot-scope="scope">
-            <el-button type="text" size="small" @click="editFn(scope.row)">编辑</el-button>
-            <el-button type="text" size="small" @click="addRolePermissions(scope.row)">添加角色权限</el-button>
+          <template v-else-if="column.property === 'create_time'">{{ $formatDate(row.create_time) }}</template>
+          <template v-else-if="column.property === 'last_updatetime'">{{ $formatDate(row.last_updatetime) }}</template>
+          <template v-else-if="column.property === 'edit'">
+            <el-button type="text" size="small" @click="editFn(row)">编辑</el-button>
+            <el-button type="text" size="small" @click="delFn(row)">删除</el-button>
           </template>
-        </el-table-column>
-      </el-table>
-      <el-pagination
-        style="margin-top: 10px;text-align: left;"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[10, 20, 30, 40, 50]"
-        :page-size="pageSize"
-        :total="total"
-        layout="total, sizes, prev, pager, next, jumper"
-      ></el-pagination>
+        </template>
+      </BaseTable>
+      <el-pagination style="margin-top: 10px; text-align: left" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40, 50]" :page-size="pageSize" :total="total" layout="total, sizes, prev, pager, next, jumper"></el-pagination>
     </div>
-    <Modal
-      v-if="isShow"
-      :isShow="isShow"
-      :title="title"
-      :backData="backData"
-      :dictData="dictData"
-      @close="isShow = false"
-      @updateList="roleList"
-    />
-    <RoleModal
-      v-if="isHide"
-      :isHide="isHide"
-      :selectIds="selectIds"
-      :backRoleData="backRoleData"
-      @updateList="roleList"
-      @close="isHide = false"
-    />
+    <Modal v-if="isShow" :isShow="isShow" :title="title" :backData="backData" :dictData="dictData" @close="isShow = false" @updateList="roleList" />
+    <RoleModal v-if="isHide" :isHide="isHide" :selectIds="selectIds" :backRoleData="backRoleData" @updateList="roleList" @close="isHide = false" />
   </div>
 </template>
 
@@ -66,10 +36,24 @@ export default {
   components: {
     Modal: () => import("./modal.vue"),
     RoleModal: () => import("./roleModal.vue"),
+    BaseTable: () => import("@/components/baseTable"),
   },
   data() {
     return {
       tableData: [],
+      filterColums: [
+        { label: "角色id", prop: "id" },
+        { label: "角色名称", prop: "rolename", showOverflowTooltip: true },
+        { label: "状态", prop: "status", showOverflowTooltip: true },
+        { label: "创建时间", prop: "create_time", showOverflowTooltip: true },
+        { label: "最后修改时间", prop: "last_updatetime", showOverflowTooltip: true },
+        {
+          label: "操作",
+          prop: "edit",
+          fixed: "right",
+          width: "180",
+        },
+      ],
       isShow: false,
       title: "",
       dictData: null,

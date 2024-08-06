@@ -37,23 +37,33 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .drawerbox {
+  background: #f4f5f5;
+  width: 100px;
+  height: 100%;
+  // 样式穿透
+  ::v-deep .el-drawer {
+    background: #f4f5f5;
+  }
+
   .content {
     overflow-x: hidden; /* 隐藏横向滚动条 */
     overflow-y: scroll; /* 开启纵向滚动条 */
     text-align: center;
-    display: flex;
   }
   .info {
-    width: 100%; /* 设置容器的宽度 */
+    width: 90%; /* 设置容器的宽度 */
+    margin: 0 auto;
     .info-item {
-      width: 400px;
+      background: #fff;
+      width: 100%;
+      margin: 2px auto;
       height: 80px;
+      font-weight: bold;
       line-height: 80px;
       text-overflow: ellipsis;
       white-space: nowrap;
-      margin: 2px auto;
       color: #303133;
       box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
       display: inline-block;

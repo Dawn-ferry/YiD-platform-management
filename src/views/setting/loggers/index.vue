@@ -8,23 +8,14 @@
     <div class="yidu-main">
       <BaseTable :tableData="tableData" :filterColums="filterColums">
         <template v-slot:beforeCol>
-          <el-table-column type="index" width="60" />
+          <el-table-column type="index" width="60" align="center" />
           <el-table-column v-if="false" prop="id" label="id" width="80" />
         </template>
         <template v-slot:tableBody="{ scopeData: { row, column } }">
-          <template v-if="column.property === 'infotype'">{{ $formatDate(row.operating_time)}}</template>
+          <template v-if="column.property === 'infotype'">{{ $formatDate(row.operating_time) }}</template>
         </template>
       </BaseTable>
-      <el-pagination
-        style="margin-top: 10px;text-align: left;"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[10, 20, 30, 40, 50]"
-        :page-size="pageSize"
-        :total="total"
-        layout="total, sizes, prev, pager, next, jumper"
-      />
+      <el-pagination style="margin-top: 10px; text-align: left" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40, 50]" :page-size="pageSize" :total="total" layout="total, sizes, prev, pager, next, jumper" />
     </div>
   </div>
 </template>

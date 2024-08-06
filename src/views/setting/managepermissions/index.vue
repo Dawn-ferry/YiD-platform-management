@@ -6,23 +6,22 @@
       </div>
     </div>
     <div class="yidu-main">
-      <BaseTable
-        :tableData="tableData"
-        :filterColums="filterColums"
-        row-key="id"
-        border
-        default-expand-all
-        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-        style="width: 100%"
-      ></BaseTable>
-      <!-- <el-table
-        :data="tableData"
-        row-key="id"
-        border
-        default-expand-all
-        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-        max-height="550px"
-      >
+      <BaseTable :tableData="tableData" :filterColums="filterColums" :rowkey="'id'" border :defaultExpandAll="true" :treeProps="{ children: 'children', hasChildren: 'hasChildren' }" style="width: 100%">
+        <template v-slot:beforeCol>
+          <el-table-column type="index" width="60" align="center" />
+        </template>
+        <template v-slot:tableBody="{ scopeData: { row, column } }">
+          <template v-if="column.property === 'status'">
+            <el-tag :type="row.status ? 'success' : 'danger'">{{ row.status ? "有效" : "无效" }}</el-tag>
+          </template>
+          <template v-else-if="column.property === 'create_time'">{{ $formatDate(row.create_time) }}</template>
+          <template v-else-if="column.property === 'last_updatetime'">{{ $formatDate(row.last_updatetime) }}</template>
+          <template v-else-if="column.property === 'edit'">
+            <el-button type="text" size="small" @click="editFn(row)">编辑</el-button>
+          </template>
+        </template>
+      </BaseTable>
+      <!-- <el-table :data="tableData" row-key="id" border default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" max-height="550px">
         <el-table-column fixed prop="id" label="权限id" align="center" />
         <el-table-column prop="per_code" label="基础权限code" width="120" show-overflow-tooltip align="center" />
         <el-table-column prop="per_name" label="基础权限名称" width="120" show-overflow-tooltip align="center" />
@@ -46,19 +45,10 @@
             <el-button type="text" size="small" @click="editFn(scope.row)">编辑</el-button>
           </template>
         </el-table-column>
-      </el-table>-->
+      </el-table> -->
     </div>
 
-    <Modal
-      v-if="isShow"
-      :isShow="isShow"
-      :title="title"
-      :parentIds="parentIds"
-      :backData="backData"
-      :dictData="dictData"
-      @close="isShow = false"
-      @updateList="omsPermissionList"
-    />
+    <Modal v-if="isShow" :isShow="isShow" :title="title" :parentIds="parentIds" :backData="backData" :dictData="dictData" @close="isShow = false" @updateList="omsPermissionList" />
   </div>
 </template>
 
@@ -74,7 +64,7 @@ export default {
     return {
       tableData: [],
       filterColums: [
-        { label: "id", prop: "权限id", width: "60" },
+        { label: "id", prop: "权限id", width: "60", hasChildren: true },
         { label: "基础权限code", prop: "per_code", showOverflowTooltip: true, width: "120" },
         { label: "基础权限名称", prop: "per_name" },
         { label: "父级id", prop: "parent_id" },

@@ -4,10 +4,10 @@
       <div class="search-area">
         <el-form ref="searchForm" :model="searchForm" label-width="50px">
           <el-form-item label="账号" label-width="50px">
-            <el-input v-model="searchForm.username" size="small" style="width: 180px;" />
+            <el-input v-model="searchForm.username" size="small" style="width: 180px" />
           </el-form-item>
           <el-form-item label="姓名">
-            <el-input v-model="searchForm.realname" size="small" style="width: 180px;" />
+            <el-input v-model="searchForm.realname" size="small" style="width: 180px" />
           </el-form-item>
           <div class="search-btn">
             <el-button type="primary" size="small" icon="el-icon-search" @click="omsList">查询</el-button>
@@ -23,56 +23,32 @@
       </div>
     </div>
     <div class="yidu-main">
-      <el-table :data="tableData" border max-height="550px" style="width: 100%">
-        <el-table-column fixed type="index" label="序号" width="60" align="center" />
-        <el-table-column v-if="false" prop="id" label="用户id" width="80" align="center" />
-        <el-table-column prop="username" label="帐号" show-overflow-tooltip align="center" />
-        <el-table-column prop="password" label="密码" show-overflow-tooltip align="center" />
-        <el-table-column prop="realname" label="姓名" show-overflow-tooltip align="center" />
-        <el-table-column prop="isadmin" label="身份" show-overflow-tooltip align="center">
-          <template slot-scope="scope">{{ scope.row.isadmin ? "管理者" : "员工" }}</template>
-        </el-table-column>
-        <el-table-column prop="roleid" label="角色id" align="center" />
-        <el-table-column label="所属部门" align="center" show-overflow-tooltip>
-          <template slot-scope="scope">{{ depToName(scope.row.departmentids) }}</template>
-        </el-table-column>
-        <el-table-column align="center" label="状态" width="120">
-          <template slot-scope="scope">
-            <el-tag :type="scope.row.status ? 'success' : 'danger'">{{ scope.row.status ? "有效" : "无效" }}</el-tag>
+      <BaseTable :tableData="tableData" :filterColums="filterColums">
+        <template v-slot:beforeCol>
+          <el-table-column type="index" fixed width="60" align="center" />
+        </template>
+        <template v-slot:tableBody="{ scopeData: { row, column } }">
+          <template v-if="column.property === 'departmentids'">{{ depToName(row.departmentids) }}</template>
+          <template v-else-if="column.property === 'status'">
+            <el-tag :type="row.status ? 'success' : 'danger'">{{ row.status ? "有效" : "无效" }}</el-tag></template
+          >
+          <template v-else-if="column.property === 'isadmin'">
+            {{ row.isadmin ? "管理者" : "员工" }}
           </template>
-        </el-table-column>
-        <el-table-column v-if="roleid === 1" prop="logincount" label="登陆次数" width="120" align="center" />
-        <el-table-column v-if="roleid === 1" prop="last_logintime" label="最后登录时间" width="200" align="center">
-          <template slot-scope="scope">{{ $formatDate(scope.row.last_logintime) }}</template>
-        </el-table-column>
-        <el-table-column fixed="right" label="操作" align="center" width="120">
-          <template slot-scope="scope">
-            <el-button type="text" size="small" @click="editFn(scope.row)">编辑</el-button>
-            <el-button type="text" size="small" @click="delFn(scope.row)">删除</el-button>
+          <template v-else-if="column.property === 'roleid'">{{ row.roleid }}</template>
+          <!-- 只有超级管理员看到数据 -->
+          <template v-else-if="column.property === 'logincount'">{{ row.logincount }}</template>
+          <template v-else-if="column.property === 'last_logintime'">{{ $formatDate(row.last_logintime) }}</template>
+          <template v-else-if="column.property === 'edit'">
+            <el-button type="text" size="small" @click="editFn(row)">编辑</el-button>
+            <el-button type="text" size="small" @click="delFn(row)">删除</el-button>
           </template>
-        </el-table-column>
-      </el-table>
-      <el-pagination
-        style="margin-top: 10px;text-align: left;"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[10, 20, 30, 40, 50]"
-        :page-size="pageSize"
-        :total="total"
-        layout="total, sizes, prev, pager, next, jumper"
-      />
+        </template>
+      </BaseTable>
+      <el-pagination style="margin-top: 10px; text-align: left" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40, 50]" :page-size="pageSize" :total="total" layout="total, sizes, prev, pager, next, jumper" />
     </div>
 
-    <Modal
-      v-if="isShow"
-      :isShow="isShow"
-      :title="title"
-      :backData="backData"
-      :roleData="roleData"
-      @close="isShow = false"
-      @updateList="omsList"
-    />
+    <Modal v-if="isShow" :isShow="isShow" :title="title" :backData="backData" :roleData="roleData" @close="isShow = false" @updateList="omsList" />
   </div>
 </template>
 
@@ -85,11 +61,31 @@ export default {
   name: "userinfo",
   components: {
     Modal: () => import("./modal.vue"),
+    BaseTable: () => import("@/components/baseTable"),
   },
 
   data() {
     return {
       tableData: [],
+      filterColums: [
+        { label: "用户id", prop: "id" },
+        { label: "帐号", prop: "username", showOverflowTooltip: true },
+        { label: "密码", prop: "password", showOverflowTooltip: true },
+        { label: "姓名", prop: "realname", showOverflowTooltip: true },
+        { label: "身份", prop: "isadmin", showOverflowTooltip: true },
+        { label: "角色id", prop: "roleid", showOverflowTooltip: true },
+        { label: "所属部门", prop: "departmentids", showOverflowTooltip: true },
+        { label: "状态", prop: "status", showOverflowTooltip: true },
+        { label: "登陆次数", prop: "logincount", showOverflowTooltip: true },
+        { label: "最后登录时间", width: "120", prop: "last_logintime", showOverflowTooltip: true },
+        {
+          label: "操作",
+          prop: "edit",
+          fixed: "right",
+          width: "160",
+        },
+      ],
+
       searchForm: {},
       isShow: false,
       title: "",
@@ -203,4 +199,4 @@ export default {
   },
 }
 </script>
-<style lang="scss" ></style>
+<style lang="scss"></style>

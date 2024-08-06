@@ -1,12 +1,15 @@
 <template>
   <div class="model">
-    <el-dialog title="通知" :visible="isDialog" @close="$emit('close')" width="30%" center>
-      <span style="line-height: 20px;">{{msgInfo.content}}</span>
-      <div style="position: absolute;right: 20px;bottom:60px;text-align: center;line-height: 20px;">
-        <div>发布时间</div>
-        <div>{{ $formatDate(msgInfo.release_time) }}</div>
+    <el-dialog title="通知" :visible="isDialog" @close="$emit('close')" width="30%" height="500px" center>
+      <div class="infoContent">
+        <div class="main">{{ msgInfo.content }}</div>
+        <div class="bottom">
+          <div class="time">
+            <div>发布时间</div>
+            <div>{{ $formatDate(msgInfo.release_time) }}</div>
+          </div>
+        </div>
       </div>
-      <div style="height: 100px;"></div>
     </el-dialog>
   </div>
 </template>
@@ -19,8 +22,28 @@ export default {
   },
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .model {
-  height: 400px;
+  ::v-deep .el-dialog {
+    height: 40%;
+    border: 1px solid red;
+    position: relative;
+  }
+  .infoContent {
+    margin: 0 auto;
+    color: teal;
+    font-size: 18px;
+    line-height: 1.5;
+    .main {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+    .bottom {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+  }
 }
 </style>
