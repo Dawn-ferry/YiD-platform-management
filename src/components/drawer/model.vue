@@ -26,7 +26,6 @@ export default {
 .model {
   ::v-deep .el-dialog {
     height: 40%;
-    border: 1px solid red;
     position: relative;
   }
   .infoContent {
@@ -43,6 +42,9 @@ export default {
       position: absolute;
       bottom: 20px;
       right: 20px;
+      .time {
+        text-align: center;
+      }
     }
   }
 }
