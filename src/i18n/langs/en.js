@@ -6,13 +6,5 @@ export default {
     msg3: "test three",
     message: "first value",
     display: "second value",
-    // 材料列表的材料类型
-    materialType: {
-      nameSteel: "Steel",
-      nameAlumialloy: "Aluminum alloy",
-      nameCfrp: "Carbon Fiber Composites",
-      nameSoft: "Soft Materials",
-      nameOther: "Other",
-    },
   },
 }
