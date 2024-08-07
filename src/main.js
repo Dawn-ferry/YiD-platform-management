@@ -14,7 +14,11 @@ import "@/permission"
 import "@/utils/directive"
 import "./styles/element-variables.scss"
 
-// import "../theme/index.css"
+import i18n from "./i18n"
+
+Vue.use(ElementUI, {
+  i18n: (key, value) => i18n.t(key, value), //为了实现element插件的多语言切换
+})
 // 粒子效果插件
 Vue.use(VueParticles)
 
@@ -48,5 +52,6 @@ new Vue({
   el: "#app",
   router,
   store,
+  i18n,
   render: (h) => h(App),
 })

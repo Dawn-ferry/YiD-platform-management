@@ -4,31 +4,45 @@
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
     <!-- 面包屑 -->
     <breadcrumb class="breadcrumb-container" />
-    <!-- 通知 -->
-    <div class="inform" @click="msgFn">
-      <el-badge is-dot :hidden="ishidden">
-        <i class="el-icon-message-solid"></i>
-      </el-badge>
-    </div>
     <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <img src="../../assets/avatar.gif" class="user-avatar" />
-          <i class="el-icon-caret-bottom" />
-        </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
-            <el-dropdown-item>Home</el-dropdown-item>
-          </router-link>
-          <el-dropdown-item divided @click.native="changePWD">
-            <span style="display: block">修改密码</span>
-          </el-dropdown-item>
-          <el-dropdown-item divided @click.native="logout">
-            <span style="display: block">退出登录</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      <!-- 通知 -->
+      <div class="inform" @click="msgFn">
+        <el-badge is-dot :hidden="ishidden">
+          <i class="el-icon-message-solid"></i>
+        </el-badge>
+      </div>
+      <!-- 语言 -->
+      <div class="lang">
+        <el-dropdown :hide-on-click="false" @command="changeLang">
+          <svg-icon icon-class="lang" class="el-dropdown-link" style="font-size: 28px" />
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="zh" :disabled="isforbid">中文</el-dropdown-item>
+            <el-dropdown-item command="en" :disabled="!isforbid">English</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+      <!-- 头像 -->
+      <div class="avatar">
+        <el-dropdown class="avatar-container" trigger="click">
+          <div class="avatar-wrapper">
+            <img src="../../assets/avatar.gif" class="user-avatar" />
+            <i class="el-icon-caret-bottom" />
+          </div>
+          <el-dropdown-menu slot="dropdown" class="user-dropdown">
+            <router-link to="/">
+              <el-dropdown-item>Home</el-dropdown-item>
+            </router-link>
+            <el-dropdown-item divided @click.native="changePWD">
+              <span style="display: block">修改密码</span>
+            </el-dropdown-item>
+            <el-dropdown-item divided @click.native="logout">
+              <span style="display: block">退出登录</span>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
     </div>
+
     <Modal v-if="isShow" :title="title" :isShow="isShow" @close="isShow = false" />
     <Drawer v-if="isHide" :title="title" :isHide="isHide" @close="isHide = false" />
   </div>
@@ -43,6 +57,7 @@ import Drawer from "@/components/drawer"
 export default {
   data() {
     return {
+      isforbid: true,
       isShow: false,
       title: "",
       ishidden: false,
@@ -59,6 +74,19 @@ export default {
     ...mapGetters(["sidebar", "avatar"]),
   },
   methods: {
+    changeLang() {
+      // 读取缓存
+      this.isforbid = !this.isforbid
+      let lang = localStorage.getItem("lang") ? localStorage.getItem("lang") : "zh"
+      if (lang === "zh") {
+        this.$i18n.locale = "en"
+        localStorage.setItem("lang", "en")
+      } else {
+        this.$i18n.locale = "zh"
+        localStorage.setItem("lang", "zh")
+      }
+      location.replace(location) //刷新网页
+    },
     msgFn() {
       this.ishidden = true
       this.isHide = true
@@ -102,25 +130,27 @@ export default {
   .breadcrumb-container {
     float: left;
   }
+  .right-menu {
+    // border: 1px solid blue;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 50px;
+  }
   .inform {
-    position: absolute;
-    top: 5px;
-    right: 100px;
-    height: 90%;
-    line-height: 40px;
     display: inline-block;
     font-size: 28px;
   }
+  .lang {
+    font-size: 28px;
+    margin: 0 40px;
+  }
 
-  .right-menu {
-    float: right;
-    height: 100%;
-    line-height: 50px;
-
+  .avatar {
     &:focus {
       outline: none;
     }
-
     .right-menu-item {
       display: inline-block;
       padding: 0 8px;
@@ -138,7 +168,6 @@ export default {
         }
       }
     }
-
     .avatar-container {
       margin-right: 30px;
 

@@ -3,6 +3,7 @@
     <div class="yidu-header">
       <div class="btn-area">
         <el-button type="primary" @click="exportFn" size="small">导出</el-button>
+        <h4>{{ $t("msg.msg1") }}</h4>
       </div>
     </div>
     <div class="yidu-main">
