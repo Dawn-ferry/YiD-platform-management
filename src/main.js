@@ -13,6 +13,8 @@ import "@/permission"
 // import mixin from "@/mixins/globalMixin"
 import "@/utils/directive"
 import "./styles/element-variables.scss"
+
+// import "../theme/index.css"
 // 粒子效果插件
 Vue.use(VueParticles)
 

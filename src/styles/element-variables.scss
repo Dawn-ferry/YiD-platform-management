@@ -1,6 +1,14 @@
 /* 改变主题色变量 */
-$--color-primary: teal;
+$--color-primary: #367e8e;
+$menuText: #bfcbd9;
+$menuActiveText: #367e8e;
+$subMenuActiveText: #f4f4f5;
+$menuBg: #304156;
+$menuHover: #263445;
+$subMenuBg: #1f2d3d;
+$subMenuHover: #001528;
 
+$sideBarWidth: 210px;
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: "~element-ui/lib/theme-chalk/fonts";
 
