@@ -1,7 +1,13 @@
 ## 记录
+系统账号信息
 
 ```
+admin
+123456
+```
+
 更换element主题色：
+```
 element-variables.scss文件中修改 主题色变量 
 
 
@@ -9,12 +15,14 @@ element-variables.scss文件中修改 主题色变量
 
 ```
 
-```
 国际化语言的实现
+```
 文献参考：官方文档https://element.eleme.cn/#/zh-CN/component/i18n
 
 
 ```
+
+
 
 ```
 svg的使用

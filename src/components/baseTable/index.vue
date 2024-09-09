@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="tableData" border :row-key="rowkey" :default-expand-all="defaultExpandAll" :tree-props="treeProps" style="width: 100%">
+    <el-table :data="tableData" border :row-key="rowkey" :default-expand-all="defaultExpandAll" :tree-props="treeProps" :height="height" style="width: 100%">
       <!-- 需要特殊处理的列表放前 -->
       <slot name="beforeCol"></slot>
       <el-table-column v-for="(item, idx) in filterColums" :key="item.prop || idx" :type="item.type" :index="item.index" :label="item.label" :prop="item.prop" :width="item.width" :min-width="item.minWidth" :fixed="item.fixed" :show-overflow-tooltip="item.showOverflowTooltip === undefined ? true : item.showOverflowTooltip" :align="item.align || 'center'" max-height="500">
@@ -39,6 +39,12 @@ export default {
     },
     filterColums: {
       type: Array,
+      required: false,
+    },
+    // 设置高度能固定表头产生纵向滚动条
+    height: {
+      type: Number,
+      default: 550,
       required: false,
     },
   },

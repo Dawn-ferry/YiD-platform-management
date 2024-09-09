@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="yidu-main">
-      <BaseTable :tableData="tableData" :filterColums="filterColums" :rowkey="'id'" border :defaultExpandAll="true" :treeProps="{ children: 'children', hasChildren: 'hasChildren' }" style="width: 100%">
+      <BaseTable :tableData="tableData" :filterColums="filterColums" :rowkey="'id'" border :defaultExpandAll="true" :treeProps="{ children: 'children', hasChildren: 'hasChildren' }" :height="600" style="width: 100%; height: 100%">
         <template v-slot:beforeCol>
           <el-table-column type="index" width="60" align="center" />
         </template>
@@ -64,7 +64,7 @@ export default {
     return {
       tableData: [],
       filterColums: [
-        { label: "权限id", prop: "id", width: "60", hasChildren: true },
+        { label: "权限id", prop: "id", width: "70", hasChildren: true },
         { label: "基础权限code", prop: "per_code", showOverflowTooltip: true, width: "120" },
         { label: "基础权限名称", prop: "per_name" },
         { label: "父级id", prop: "parent_id" },

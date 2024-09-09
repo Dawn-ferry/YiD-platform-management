@@ -9,6 +9,8 @@ export default {}
 <style scoped>
 .content {
   width: 100%;
-  height: 100vh;
+  /* height: calc(100vh - 50px); */
+  height: 100%;
+  border: 1px solid red;
 }
 </style>
