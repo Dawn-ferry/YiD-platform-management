@@ -64,7 +64,7 @@ export default {
     return {
       tableData: [],
       filterColums: [
-        { label: "id", prop: "权限id", width: "60", hasChildren: true },
+        { label: "权限id", prop: "id", width: "60", hasChildren: true },
         { label: "基础权限code", prop: "per_code", showOverflowTooltip: true, width: "120" },
         { label: "基础权限名称", prop: "per_name" },
         { label: "父级id", prop: "parent_id" },

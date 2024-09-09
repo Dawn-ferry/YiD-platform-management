@@ -8,7 +8,7 @@ import ElementLocale from "element-ui/lib/locale"
 import enLocale from "element-ui/lib/locale/lang/en"
 import zhLocale from "element-ui/lib/locale/lang/zh-CN"
 
-ElementLocale.i18n((key, value) => i18n.t(key, value)) //为了实现element插件的多语言切换
+ElementLocale.i18n((key, value) => i18n.t(key, value)) //实现element插件中的多语言切换
 Vue.use(VueI18n) // 全局注册国际化包
 
 // 准备翻译的语言环境信息

@@ -15,9 +15,9 @@ import "@/utils/directive"
 import "./styles/element-variables.scss"
 
 import i18n from "./i18n"
-
+// 多国语言切换
 Vue.use(ElementUI, {
-  i18n: (key, value) => i18n.t(key, value), //为了实现element插件的多语言切换
+  i18n: (key, value) => i18n.t(key, value),
 })
 // 粒子效果插件
 Vue.use(VueParticles)
