@@ -20,6 +20,9 @@ import i18n from "./i18n"
 Vue.use(VueParticles)
 
 Vue.use(ElementUI)
+// Vue.use(ElementUI, {
+//   i18n: (key, value) => i18n.t(key, value),
+// })
 // 全局mixin
 // Vue.mixin(mixin)
 // 挂载到vue 中

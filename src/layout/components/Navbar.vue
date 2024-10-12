@@ -12,9 +12,11 @@
         </el-badge>
       </div>
       <!-- 语言 -->
-      <div class="lang">
+      <div class="langs">
         <el-dropdown :hide-on-click="false" @command="changeLang">
-          <svg-icon icon-class="lang" class="el-dropdown-link" style="font-size: 28px" />
+          <span class="svg-container">
+            <svg-icon icon-class="lang" class="el-dropdown-link" style="font-size: 28px" />
+          </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="zh" :disabled="isforbid">中文</el-dropdown-item>
             <el-dropdown-item command="en" :disabled="!isforbid">English</el-dropdown-item>
@@ -74,10 +76,11 @@ export default {
     ...mapGetters(["sidebar", "avatar"]),
   },
   methods: {
-    changeLang() {
+    changeLang(val) {
+      console.log("va", val)
       // 读取缓存
       this.isforbid = !this.isforbid
-      let lang = localStorage.getItem("lang") ? localStorage.getItem("lang") : "zh"
+      let lang = val === "zh" ? "en" : "zh"
       if (lang === "zh") {
         this.$i18n.locale = "en"
         localStorage.setItem("lang", "en")
@@ -142,7 +145,7 @@ export default {
     display: inline-block;
     font-size: 28px;
   }
-  .lang {
+  .langs {
     font-size: 28px;
     margin: 0 40px;
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" ref="bgcImg">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
       <div class="title-container">
         <h3 class="title">Yi度管理系统</h3>
@@ -65,6 +65,11 @@ export default {
   },
   created() {
     this.doubleHandle = throttle(this.handleLogin, 1000)
+  },
+  mounted() {
+    // 设置背景图片
+    const bgcImg = this.$refs.bgcImg
+    bgcImg.style.backgroundImage = `url(${require(process.env.VUE_APP_IMAGE_URL)})`
   },
   methods: {
     showPwd() {
@@ -159,7 +164,9 @@ $light_gray: #eee;
   width: 100%;
   background-color: $bg;
   overflow: hidden;
-  background: url("../../assets/logo.png") center no-repeat;
+  // background: url("../../assets/logo.png") center no-repeat;
+  background-size: "no-repeat";
+  background-position: center 0;
   background-size: 100% 100%;
   display: flex;
   justify-content: center;
