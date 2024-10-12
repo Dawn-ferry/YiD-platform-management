@@ -22,6 +22,7 @@ export default {
     background: #409eff;
     width: 100%;
     height: calc(100vh - 50px);
+    cursor: pointer;
   }
   &-text {
     position: absolute;
@@ -33,6 +34,11 @@ export default {
     font-size: 60px;
     font-weight: bold;
     color: #fff;
+    // 文字无法选中
+    -webkit-user-select: none; /*webkit浏览器*/
+    -moz-user-select: none; /*火狐*/
+    -ms-user-select: none; /*IE10*/
+    user-select: none;
   }
   .particles {
     position: absolute;
