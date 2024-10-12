@@ -14,6 +14,7 @@ Vue.use(VueI18n) // 全局注册国际化包
 // 准备翻译的语言环境信息
 const i18n = new VueI18n({
   locale: localStorage.getItem("lang") || "zh", //将语言标识存入localStorage或sessionStorage中，页面刷新不会默认中文显示
+  // 语言包
   messages: {
     // 中文语言包
     zh: {

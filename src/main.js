@@ -15,17 +15,13 @@ import "@/utils/directive"
 import "./styles/element-variables.scss"
 
 import i18n from "./i18n"
-// 多国语言切换
-Vue.use(ElementUI, {
-  i18n: (key, value) => i18n.t(key, value),
-})
+
 // 粒子效果插件
 Vue.use(VueParticles)
 
 Vue.use(ElementUI)
 // 全局mixin
 // Vue.mixin(mixin)
-
 // 挂载到vue 中
 Vue.prototype.$formatDate = (date) => {
   return moment(date).format("YYYY-MM-DD HH:mm:ss")
@@ -48,10 +44,12 @@ Vue.prototype.validForbid = function (value, number = 255) {
 }
 Vue.config.productionTip = false
 
+// 创建和挂载根实例
+// 后面都能使用this.$xxx
 new Vue({
   el: "#app",
   router,
   store,
-  i18n,
+  i18n, // 将 i18n 实例注入到 Vue 实例中
   render: (h) => h(App),
 })

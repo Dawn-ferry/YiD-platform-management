@@ -14,7 +14,6 @@ axios.defaults.withCredentials = true
 service.interceptors.request.use(
   (config) => {
     let userInfo = store.getters.userInfo
-
     if (getToken() && store.getters.token) {
       config.headers["Authorization"] = `Bearer ${getToken()}`
       config.headers["Requesterid"] = userInfo.id
