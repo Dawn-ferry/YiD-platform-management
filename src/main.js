@@ -13,9 +13,10 @@ import "@/permission"
 // import mixin from "@/mixins/globalMixin"
 import "@/utils/directive"
 import "./styles/element-variables.scss"
-
 import i18n from "./i18n"
+import "./utils/debuggers"
 
+console.log("ss", process.env.NODE_ENV)
 // 粒子效果插件
 Vue.use(VueParticles)
 

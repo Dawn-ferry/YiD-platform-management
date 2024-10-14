@@ -10,4 +10,5 @@ module.exports = {
    * @description Whether show the logo in sidebar
    */
   sidebarLogo: false,
+  VUE_APP_IMAGE_URL: "",
 }

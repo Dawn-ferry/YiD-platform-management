@@ -3,8 +3,11 @@ import { Message } from "element-ui"
 import { getToken } from "@/utils/auth"
 import store from "@/store"
 // 封住统一axios 请求
+// VUE_APP_BASE_API
+console.log("process.env.NODE_ENV.VUE_APP_BASE_API,", process.env.VUE_APP_BASE_API)
 const service = axios.create({
-  baseURL: "/",
+  // baseURL: "/",
+  baseURL: process.env.VUE_APP_BASE_API,
   timeout: 5000,
 })
 axios.defaults.headers.post["Content-Type"] = "application/json"

@@ -69,7 +69,7 @@ export default {
   mounted() {
     // 设置背景图片
     const bgcImg = this.$refs.bgcImg
-    bgcImg.style.backgroundImage = `url(${require(process.env.VUE_APP_IMAGE_URL)})`
+    bgcImg.style.backgroundImage = `url(${require("@/assets/logo.png")})`
   },
   methods: {
     showPwd() {

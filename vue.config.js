@@ -24,7 +24,7 @@ function getIP() {
 const port = process.env.port || process.env.npm_config_port || 8585 // dev port
 module.exports = {
   // 打包的时候要改成 ./
-  publicPath: "/",
+  publicPath: process.env.NODE_ENV === "development" ? "/" : "./",
   outputDir: "dist",
   assetsDir: "static",
   lintOnSave: false, //关闭eslint检查
