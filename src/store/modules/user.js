@@ -116,6 +116,10 @@ const actions = {
           }
           const { data } = response
           let permissionList = data.list || []
+          // 重置路由
+          // 解决[vue-router] Duplicate named routes definition报错
+          // https://www.jb51.net/javascript/307672qbk.htm
+          resetRouter()
           const generatorRouter = generator(permissionList)
           // 本地权限路由表
           let allrouter = asyncRoutes
