@@ -40,8 +40,8 @@ module.exports = {
     proxy: {
       // 代理路径, 只要开发环境作用,产线环境需要使用NG
       "/api": {
-        target: "http://10.44.60.199:3000",
-        // target: "http://127.0.0.1:3000",
+        // target: "http://10.44.60.199:3000",
+        target: "http://127.0.0.1:3000",
         ws: true,
         changeOrigin: true,
         // 重写路径
@@ -50,8 +50,8 @@ module.exports = {
         },
       },
       "/": {
-        target: "http://10.44.60.199:3000",
-        // target: "http://127.0.0.1:3000",
+        // target: "http://10.44.60.199:3000",
+        target: "http://127.0.0.1:3000",
         ws: true,
         changeOrigin: true,
       },
